@@ -2,16 +2,17 @@
 
 void push(t_stack *self, t_element *elm)
 {
-	if (self->bottom)
+	if (self->top)
 	{
-		self->bottom->next = elm;
-		elm->prev = self->bottom;
+		elm->next = self->top;
+		self->top->prev = elm;
 	}
 	else
 	{
-		self->top = elm;
+		self->bottom = elm;
+		elm->next = NULL;
 	}
-	self->bottom = elm;
+	self->top = elm;
 }
 
 t_element *pop(t_stack *self)
@@ -19,10 +20,9 @@ t_element *pop(t_stack *self)
 	t_element *elm;
 
 	elm = NULL;
-	if (self->bottom == NULL)
+	if (self->top == NULL)
 		return elm;
-	self->bottom->next = NULL;
-	elm = self->bottom;
-	self->bottom = elm->prev;
+	elm = self->top;
+	self->top = elm->next;
 	return elm;
 }

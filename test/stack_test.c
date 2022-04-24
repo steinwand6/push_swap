@@ -2,6 +2,8 @@
 
 #include "../include/push_swap.h"
 
+#include "../src/utils.c"
+#include "../src/ft_atol.c"
 #include "../src/stack.c"
 #include "../src/element.c"
 
@@ -15,13 +17,12 @@ int main()
 
 	stack->top = NULL;
 	stack->bottom = NULL;
-	stack->top = prev;
 	for (int i = 0; i < 10; i++) {
 		new_one = new_element(i);
 		new_one->value = array[i];
 		push(stack, new_one);
 	}
-	while (stack->bottom)
+	while (stack->top)
 	{
 		t_element *val = pop(stack);
 		printf("%d\n", val->value);

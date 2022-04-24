@@ -20,5 +20,10 @@ typedef struct s_stack
 
 void push(t_stack *self, t_element *elm);
 t_element *pop(t_stack *self);
+int is_integer_string(char *str);
+int push_with_validate(t_stack *stack, char *val);
+long	ft_atol(const char *str);
+void ope_swap(t_stack *sa);
+void ope_push(t_stack *sa, t_stack *sb);
 
 #endif

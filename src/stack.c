@@ -30,3 +30,15 @@ t_element *pop(t_stack *self)
 	elm->next = NULL;
 	return elm;
 }
+
+t_stack *new_stack(void)
+{
+	t_stack *ptr;
+
+	ptr = malloc(sizeof(t_stack));
+	if (ptr == NULL)
+		return (NULL);
+	ptr->top = NULL;
+	ptr->bottom = NULL;
+	return (ptr);
+}

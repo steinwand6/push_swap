@@ -13,10 +13,10 @@
 NAME		= push_swap
 CC			= gcc
 CFLAGS	= -Wall -Werror -Wextra
-SRCS		= main.c read_map.c utils.c
+SRCS		= element.c ft_atol.c main.c ope1.c stack.c utils.c
 HEADERPATH	= -I ./include
 
-OBJS	= $(SRC:.c=.o)
+OBJS	= $(SRCS:.c=.o)
 OBJSB	= $(SRCB:.c=.o)
 ifdef WITH_BONUS
 ALL_OBJS = $(OBJS) $(OBJSB)
@@ -34,18 +34,18 @@ clean:
 fclean:	clean
 	rm -f $(NAME)
 	@make -C libft fclean
-	@make -C $(MLX) clean
-	rm -f $(MLX)/libmlx_Linux.a
 
 re:	fclean all
 
 #bonus:
 #	@$(MAKE) WITH_BONUS=1 $(NAME)
 
-$(NAME):	$(MLX) $(ALL_OBJS)
+%.o:	%.c
 	@make -C ./libft
-	@make -C ./$(MLX)
-	gcc -o $(NAME) $(ALL_OBJS) ./libft/libft.a
+	$(CC) -c $(CFLAGS) -o $@ $< $(HEADERPATH)
+
+$(NAME):	$(ALL_OBJS)
+	gcc -o  $(NAME) $(ALL_OBJS) ./libft/libft.a
 
 .PHONY:	all clean fclean re bonus
 

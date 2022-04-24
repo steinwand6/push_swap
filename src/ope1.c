@@ -6,9 +6,9 @@ void ope_swap(t_stack *stack)
 	t_element *second;
 	t_element *third;
 
+	top = stack->top;
 	if (!top || !(top->next))
 		return ;
-	top = stack->top;
 	second = top->next;
 	third = second->next;
 	

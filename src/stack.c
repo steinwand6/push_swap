@@ -24,5 +24,9 @@ t_element *pop(t_stack *self)
 		return elm;
 	elm = self->top;
 	self->top = elm->next;
+	if (self->top)
+		self->top->prev = NULL;
+	elm->prev = NULL;
+	elm->next = NULL;
 	return elm;
 }

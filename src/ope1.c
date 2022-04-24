@@ -13,7 +13,6 @@ void ope_swap(t_stack *stack)
 	third = second->next;
 	
 	stack->top = second;
-	
 	top->next = third;
 	top->prev = second;
 	third->prev = top;
@@ -26,5 +25,38 @@ void ope_push(t_stack *stack_a, t_stack *stack_b)
 	t_element *a_top;
 
 	a_top = pop(stack_a);
-	push(stack_b, a_top);
+	if (a_top != NULL)
+		push(stack_b, a_top);
+}
+
+void ope_rotate(t_stack *stack)
+{
+	t_element *top;
+	t_element *btm;
+
+	if (stack->top == NULL || stack->top->next == NULL)
+		return ;
+	top = pop(stack);
+	btm = stack->bottom;
+	btm->next = top;
+	stack->bottom = top;
+	top->prev = btm;
+	top->next = NULL;
+}
+
+void ope_reverse(t_stack *stack)
+{
+	t_element *top;
+	t_element *btm;
+
+	if (stack->top->next == NULL)
+		return ;
+	top = stack->top;
+	btm = stack->bottom;
+	stack->bottom = btm->prev;
+	stack->bottom->next = NULL;
+	btm->next = top;
+	top->prev = btm;
+	btm->prev = NULL;
+	stack->top = btm;
 }

@@ -30,10 +30,12 @@ int main(int argc, char *argv[])
 	t_element *elm;
 	while (sa->top)
 	{
+		ope_rotate(sa);
 		elm = pop(sa);
 		printf("%d\n", elm->value);
 		free(elm);
 	}
+	ope_reverse(sb);
 	while (sb->top)
 	{
 		elm = pop(sb);

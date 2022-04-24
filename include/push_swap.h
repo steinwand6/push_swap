@@ -25,5 +25,7 @@ int push_with_validate(t_stack *stack, char *val);
 long	ft_atol(const char *str);
 void ope_swap(t_stack *sa);
 void ope_push(t_stack *sa, t_stack *sb);
+void ope_rotate(t_stack *stack);
+void ope_reverse(t_stack *stack);
 
 #endif

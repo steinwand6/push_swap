@@ -13,7 +13,7 @@ t_element *new_element(int value)
 	return ptr;
 }
 
-int		*array_convert(char **argv, int size)
+int		*convert_array(char **argv, int size)
 {
 	int *array;
 	int	i;

@@ -16,10 +16,7 @@ int case1()
 	stack->top = NULL;
 	stack->bottom = NULL;
 
-	for (int i = 0; i < 10; i++) {
-		if (push_with_validate(stack, array[i]))
-			printf("validated with %s\n", array[i]);
-	}
+	create_stack_from_array(stack, convert_array(array, 10), 10);
 	if (is_sorted_asc(stack)) {
 		printf("is_sorted!\n");
 	}	
@@ -42,10 +39,7 @@ int case2()
 	stack->top = NULL;
 	stack->bottom = NULL;
 
-	for (int i = 0; i < 10; i++) {
-		if (push_with_validate(stack, array[i]))
-			printf("validated with %s\n", array[i]);
-	}
+	create_stack_from_array(stack, convert_array(array, 10), 10);
 	if (is_sorted_asc(stack)) {
 		printf("is_sorted!\n");
 	}	

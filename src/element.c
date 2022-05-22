@@ -13,10 +13,10 @@ t_element *new_element(int value)
 	return ptr;
 }
 
-int		*array_convert(char **argv, size_t size)
+int		*array_convert(char **argv, int size)
 {
 	int *array;
-	size_t	i;
+	int	i;
 	long	val;
 
 	array = malloc(sizeof(int) * (size + 1));
@@ -25,6 +25,8 @@ int		*array_convert(char **argv, size_t size)
 	i = 0;
 	while (i < size)
 	{
+		if (!is_integer_string(argv[i]))
+			exit (1);
 		val = atol(argv[i]);
 		if (val < INT_MIN || val > INT_MAX)
 			exit(1);

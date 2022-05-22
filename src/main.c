@@ -4,8 +4,8 @@
 
 int main(int argc, char *argv[])
 {
-	unsigned int u;
 	t_stack *sa;
+	int *values;
 	//t_stack *sb;
 
 	sa = new_stack();
@@ -13,13 +13,8 @@ int main(int argc, char *argv[])
 		return 1;
 	if (argc == 1)
 		return 1;
-	u = 1;
-	while (argv[u])
-	{
-		if (push_with_validate(sa, argv[u]))
-			return 1;
-		u++;
-	}
+	values = array_convert(&(argv[1]), argc - 1);
+	create_stack_from_array(sa, values, argc-1);
 	t_element *elm;
 	reverse_stack(sa);
 	while (sa->top)

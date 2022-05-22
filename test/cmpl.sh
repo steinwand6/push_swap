@@ -5,4 +5,4 @@ if [ -z $1 ]; then
    exit 1
 fi
 
-gcc -I ../include $1 libft.a -o $(echo $1 | sed "s;\.c;\.out;g") && ./$(echo $1 | sed "s;\.c;\.out;g") 
+gcc -fsanitize=leak -I ../include $1 libft.a -o $(echo $1 | sed "s;\.c;\.out;g") && ./$(echo $1 | sed "s;\.c;\.out;g")

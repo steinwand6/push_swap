@@ -31,5 +31,6 @@ t_element *new_element(int value);
 t_stack *new_stack(void);
 int		*convert_array(char **, int);
 void reverse_stack(t_stack *sa);
+int	*coordinate_compression(int *sa, int size);
 
 #endif

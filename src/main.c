@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
 		u++;
 	}
 	t_element *elm;
+	reverse_stack(sa);
 	while (sa->top)
 	{
 		elm = pop(sa);

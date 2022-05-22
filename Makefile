@@ -13,7 +13,8 @@
 NAME		= push_swap
 CC			= gcc
 CFLAGS	= -Wall -Werror -Wextra
-SRCS		= element.c ft_atol.c main.c ope1.c stack.c utils.c
+SRCS		= element.c ft_atol.c ope1.c stack.c utils.c \
+				main.c
 HEADERPATH	= -I ./include
 
 OBJS	= $(SRCS:.c=.o)

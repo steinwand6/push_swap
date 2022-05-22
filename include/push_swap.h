@@ -27,6 +27,7 @@ void ope_swap(t_stack *sa);
 void ope_push(t_stack *sa, t_stack *sb);
 void ope_rotate(t_stack *stack);
 void ope_reverse(t_stack *stack);
+t_element *new_element(int value);
 t_stack *new_stack(void);
 void reverse_stack(t_stack *sa);
 

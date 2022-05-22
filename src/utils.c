@@ -54,5 +54,4 @@ void	reverse_stack(t_stack *sa)
 		sa->bottom = elm;
 		elm = store;
 	}
-	puts("");
 }

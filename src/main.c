@@ -47,6 +47,7 @@ int main(int argc, char *argv[])
 		return 1;
 	values = convert_array(&(argv[1]), argc - 1);
 	values = coordinate_compression(values, argc - 1);
+	free(values);
 	create_stack_from_array(sa, values, argc - 1);
 	reverse_stack(sa);
 	solver(sa);

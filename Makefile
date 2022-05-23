@@ -48,6 +48,9 @@ re:	fclean all
 $(NAME):	$(ALL_OBJS)
 	gcc -o  $(NAME) $(ALL_OBJS) ./libft/libft.a
 
+debug:		$(ALL_OBJS)
+	gcc --sanitize=leak -o  $(NAME) $(ALL_OBJS) ./libft/libft.a
+
 .PHONY:	all clean fclean re bonus
 
 vpath %.c src

@@ -2,11 +2,43 @@
 
 # include <stdio.h>
 
+void solver(t_stack *sa)
+{
+	t_stack *sb;
+	t_element *elm;
+
+	sb = new_stack();
+	while (get_stack_size(sa) > 1)
+	{
+		if (sa->top->value == get_min_value(sa))
+		{
+			ope_push(sa, sb);
+			printf("pb\n");
+		}
+		else
+		{
+			ope_rotate(sa);
+			printf("ra\n");
+		}
+	}
+	while (sb->top)
+	{
+		ope_push(sb, sa);
+		printf("pa\n");
+	}
+	while (sa->top)
+	{
+		elm = pop(sa);
+		//printf("%d -> ", elm->value);
+		free(elm);
+	}
+	free(sb);
+}
+
 int main(int argc, char *argv[])
 {
 	t_stack *sa;
 	int *values;
-	//t_stack *sb;
 
 	sa = new_stack();
 	if (sa == NULL)
@@ -16,13 +48,7 @@ int main(int argc, char *argv[])
 	values = convert_array(&(argv[1]), argc - 1);
 	values = coordinate_compression(values, argc - 1);
 	create_stack_from_array(sa, values, argc - 1);
-	t_element *elm;
 	reverse_stack(sa);
-	while (sa->top)
-	{
-		elm = pop(sa);
-		printf("%d\n", elm->value);
-		free(elm);
-	}
+	solver(sa);
 	free(sa);
 }

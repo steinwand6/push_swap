@@ -32,5 +32,8 @@ t_stack *new_stack(void);
 int		*convert_array(char **, int);
 void reverse_stack(t_stack *sa);
 int	*coordinate_compression(int *sa, int size);
+int		get_stack_size(t_stack *stack);
+int		get_max_value(t_stack *stack);
+int		get_min_value(t_stack *stack);
 
 #endif

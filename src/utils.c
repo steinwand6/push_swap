@@ -55,3 +55,50 @@ void	reverse_stack(t_stack *sa)
 		elm = store;
 	}
 }
+
+int		get_stack_size(t_stack *stack)
+{
+	int			size;
+	t_element	*elm;
+
+	size = 0;
+	elm = stack->top;
+	while (elm)
+	{
+		elm = elm->next;
+		size++;
+	}
+	return (size);
+}
+
+int		get_max_value(t_stack *stack)
+{
+	int			max;
+	t_element	*elm;
+
+	max = 0;
+	elm = stack->top;
+	while (elm)
+	{
+		if (max < elm->value)
+			max = elm->value;
+		elm = elm->next;
+	}
+	return (max);
+}
+
+int		get_min_value(t_stack *stack)
+{
+	int			min;
+	t_element	*elm;
+
+	min = INT_MAX;
+	elm = stack->top;
+	while (elm)
+	{
+		if (min > elm->value)
+			min = elm->value;
+		elm = elm->next;
+	}
+	return (min);
+}

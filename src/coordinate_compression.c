@@ -89,7 +89,7 @@ int	*coordinate_compression(int *sa, int size)
 	i = 0;
 	while (i < size)
 	{
-		sa[i] = get_index(sa[i], vals, 0, 10);
+		sa[i] = get_index(sa[i], vals, 0, size);
 		i++;
 	}
 	free(vals);

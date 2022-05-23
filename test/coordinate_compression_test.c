@@ -12,19 +12,20 @@ int case1()
 {
 	t_stack *stack;
 	stack = malloc(sizeof(t_stack));
-	char *array[10] = {"0", "1", "-100", "3", "4", "5", "-200000", "7", "8", "9"};
+	//char *array[10] = {"0", "1", "-100", "3", "4", "5", "-200000", "7", "8", "9"};
+	char *array[7] = {"1","2","3","4","5","-2","-1"};
 
 	stack->top = NULL;
 	stack->bottom = NULL;
 
-	int *vals = convert_array(array, 10);
-	for (int i = 0; i < 10; i++)
+	int *vals = convert_array(array, 7);
+	for (int i = 0; i < 7; i++)
 	{
 		printf("%d -> ", vals[i]);
 	}
 	puts("");
-	int *sorted = coordinate_compression(vals, 10);
-	create_stack_from_array(stack, sorted, 10);
+	int *sorted = coordinate_compression(vals, 7);
+	create_stack_from_array(stack, sorted, 7);
 	free(vals);
 	reverse_stack(stack);
 	while (stack->top)

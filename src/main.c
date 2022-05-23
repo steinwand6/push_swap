@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
 	if (argc == 1)
 		return 1;
 	values = convert_array(&(argv[1]), argc - 1);
+	values = coordinate_compression(values, argc - 1);
 	create_stack_from_array(sa, values, argc - 1);
 	t_element *elm;
 	reverse_stack(sa);

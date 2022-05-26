@@ -18,7 +18,7 @@ typedef struct s_stack
 	t_element	*bottom;
 }				t_stack;
 
-typedef struct s_opelist;
+typedef struct s_opelist
 {
 	char		*ope;
     struct s_opelist		*next;

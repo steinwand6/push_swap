@@ -39,11 +39,13 @@ int	is_sorted_asc(t_stack *stack)
 	return (1);
 }
 
-void	reverse_stack(t_stack *sa)
+void	reverse_stack(t_info *info)
 {
 	t_element	*elm;
 	t_element	*store;
+	t_stack		*sa;
 
+	sa = info->a;
 	elm = sa->bottom;
 	sa->top = sa->bottom;
 	while (elm)

@@ -20,7 +20,7 @@ typedef struct s_stack
 
 typedef struct s_opelist
 {
-	char		*ope;
+	char		*op;
     struct s_opelist		*next;
     struct s_opelist		*prev;
 }				t_opelist;
@@ -36,7 +36,7 @@ typedef struct s_info
 void push(t_stack *self, t_element *elm);
 t_element *pop(t_stack *self);
 int is_integer_string(char *str);
-int create_stack_from_array(t_stack *, int *, int);
+int create_stack_from_array(t_info *, int *);
 long	ft_atol(const char *str);
 void ope_swap(t_stack *sa);
 void ope_push(t_stack *sa, t_stack *sb);
@@ -45,10 +45,12 @@ void ope_reverse(t_stack *stack);
 t_element *new_element(int value);
 t_stack *new_stack(void);
 int		*convert_array(char **, int);
-void reverse_stack(t_stack *sa);
+void reverse_stack(t_info *);
 int	*coordinate_compression(int *sa, int size);
 int		get_stack_size(t_stack *stack);
 int		get_max_value(t_stack *stack);
 int		get_min_value(t_stack *stack);
+void	init_info(t_info *info, int count);
+void	add_opelist(t_info *, const char *);
 
 #endif

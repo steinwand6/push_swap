@@ -43,19 +43,19 @@ t_stack *new_stack(void)
 	return (ptr);
 }
 
-int create_stack_from_array(t_stack *stack, int *val, int size)
+int create_stack_from_array(t_info *info, int *val)
 {
 	int i;
 	t_element *new_el;
 
 	i = 0;
-	while (i < size) {
+	while (i < info->count) {
 		if (val[i] < INT_MIN || INT_MAX < val[i])
 			return (-1);
 		new_el = new_element(val[i]);
 		if (!new_el)
 			return (-1);
-		push(stack, new_el);
+		push(info->a, new_el);
 		i++;
 	}
 	return (0);

@@ -2,29 +2,53 @@
 
 # include <stdio.h>
 
-void solver(t_stack *sa)
+void print_stack(t_stack *stack)
 {
+	t_element *el = stack->top;
+	while (el)
+	{
+		printf("%d ->", el->value);
+		el = el->next;
+	}
+	puts("");
+
+}
+
+int	get_medium_value(t_stack *stack)
+{
+	int	size;
+	int	min;
+
+	size = get_stack_size(stack);
+	min = get_min_value(stack);
+	return (min + (size / 2));
+}
+
+void solver(t_info *info)
+{
+	t_stack *sa;
 	t_stack *sb;
 	t_element *elm;
 
-	sb = new_stack();
+	sa = info->a;
+	sb = info->b;
 	while (get_stack_size(sa) > 1)
 	{
 		if (sa->top->value == get_min_value(sa))
 		{
 			ope_push(sa, sb);
-			printf("pb\n");
+			add_opelist(info, "pb");
 		}
 		else
 		{
 			ope_rotate(sa);
-			printf("ra\n");
+			add_opelist(info, "ra");
 		}
 	}
 	while (sb->top)
 	{
 		ope_push(sb, sa);
-		printf("pa\n");
+		add_opelist(info, "pa");
 	}
 	while (sa->top)
 	{
@@ -37,19 +61,22 @@ void solver(t_stack *sa)
 
 int main(int argc, char *argv[])
 {
-	t_stack *sa;
+	t_info info;
 	int *values;
 
-	sa = new_stack();
-	if (sa == NULL)
-		return 1;
-	if (argc == 1)
-		return 1;
+	if (argc == 1 || argc == 2)
+		return (0);
+	init_info(&info, argc);
 	values = convert_array(&(argv[1]), argc - 1);
 	values = coordinate_compression(values, argc - 1);
+	create_stack_from_array(&info, values);
+	reverse_stack(&info);
+	solver(&info);
 	free(values);
-	create_stack_from_array(sa, values, argc - 1);
-	reverse_stack(sa);
-	solver(sa);
-	free(sa);
+	while (info.opelist)
+	{
+		printf("%s\n", info.opelist->op);
+		info.opelist = info.opelist->next;
+	}
+	free(info.a);
 }

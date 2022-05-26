@@ -43,7 +43,18 @@ void push_to_b_without_max(t_info *info)
 		elm = info->a->top;
 		if (elm->value <= med)
 			push_b(info);
-		rotate_a(info);
+		else if (elm->next->value <= med)
+		{
+			swap_a(info);
+			push_b(info);
+		}
+		else if (info->a->bottom->value <= med)
+		{
+			reverse_a(info);
+			push_b(info);
+		}
+		else
+			rotate_a(info);
 		min = get_min_value(info->a);
 	}
 	if (get_stack_size(info->a) > 1)

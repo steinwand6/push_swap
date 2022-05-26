@@ -12,6 +12,18 @@ void	push_a(t_info* info)
 	add_opelist(info, "pa");
 }
 
+void	swap_a(t_info* info)
+{
+	ope_swap(info->a);
+	add_opelist(info, "sa");
+}
+
+void	swap_b(t_info* info)
+{
+	ope_swap(info->b);
+	add_opelist(info, "sb");
+}
+
 void	rotate_a(t_info* info)
 {
 	ope_rotate(info->a);

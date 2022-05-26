@@ -4,20 +4,15 @@ void ope_swap(t_stack *stack)
 {
 	t_element *top;
 	t_element *second;
-	t_element *third;
+	int tmp;
 
 	top = stack->top;
 	if (!top || !(top->next))
 		return ;
 	second = top->next;
-	third = second->next;
-	
-	stack->top = second;
-	top->next = third;
-	top->prev = second;
-	third->prev = top;
-	second->prev = NULL;
-	second->next = top;
+	tmp = second->value;
+	second->value = top->value;
+	top->value = tmp;
 }
 
 void ope_push(t_stack *stack_a, t_stack *stack_b)

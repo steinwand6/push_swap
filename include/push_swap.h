@@ -54,6 +54,8 @@ void	init_info(t_info *info, int count);
 void	add_opelist(t_info *, const char *);
 void	push_b(t_info*);
 void	push_a(t_info*);
+void	swap_b(t_info*);
+void	swap_a(t_info*);
 void	rotate_b(t_info*);
 void	rotate_a(t_info*);
 void	reverse_a(t_info* info);

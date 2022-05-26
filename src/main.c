@@ -59,6 +59,19 @@ void solver(t_info *info)
 	free(sb);
 }
 
+void free_oplist(t_opelist *elm)
+{
+	t_opelist *tmp;
+
+	while (elm)
+	{
+		free(elm->op);
+		tmp = elm->next;
+		free(elm);
+		elm = tmp;
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	t_info info;
@@ -73,10 +86,13 @@ int main(int argc, char *argv[])
 	reverse_stack(&info);
 	solver(&info);
 	free(values);
+	t_opelist *list = info.opelist;
 	while (info.opelist)
 	{
 		printf("%s\n", info.opelist->op);
+		free(info.opelist->op);
 		info.opelist = info.opelist->next;
 	}
+	free_oplist(list);
 	free(info.a);
 }

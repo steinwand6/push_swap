@@ -12,28 +12,7 @@ int	get_median_value(t_stack *stack)
 	return (min + (size / 2));
 }
 
-void push_to_b_without_max(t_info *info)
-{
-	int	med;
-	t_element *elm;
-
-	med = get_median_value(info->a);
-	while (get_min_value(info->a) < med)
-	{
-		elm = info->a->top;
-		if (elm->value <= med)
-		{
-			ope_push(info->a, info->b);
-			add_opelist(info, "pb");
-		}
-		ope_rotate(info->a);
-		add_opelist(info, "ra");
-	}
-	if (get_stack_size(info->a) > 1)
-		push_to_b_without_max(info);
-}
-
-int		get_max_index(t_stack *stack, int max)
+int		get_index_in_stack(t_stack *stack, int to_find)
 {
 	int			index;
 	t_element	*elm;
@@ -42,12 +21,33 @@ int		get_max_index(t_stack *stack, int max)
 	elm = stack->top;
 	while (1)
 	{
-		if (max == elm->value)
+		if (to_find == elm->value)
 			return (index);
 		elm = elm->next;
 		index++;
 	}
-	return (-1);
+}
+
+void push_to_b_without_max(t_info *info)
+{
+	int	med;
+	int	min;
+	t_element *elm;
+
+	if (is_sorted_asc(info->a))
+		return ;
+	med = get_median_value(info->a);
+	min = get_min_value(info->a);
+	while (min < med)
+	{
+		elm = info->a->top;
+		if (elm->value <= med)
+			push_b(info);
+		rotate_a(info);
+		min = get_min_value(info->a);
+	}
+	if (get_stack_size(info->a) > 1)
+		push_to_b_without_max(info);
 }
 
 void	get_max_and_push_to_a(t_info *info)
@@ -57,7 +57,7 @@ void	get_max_and_push_to_a(t_info *info)
 
 	max = get_max_value(info->b);
 	elm = info->b->top;
-	if (get_max_index(info->b, max) > (get_stack_size(info->b) / 2))
+	if (get_index_in_stack(info->b, max) > (get_stack_size(info->b) / 2))
 	{
 		while (elm->value != max)
 		{
@@ -70,13 +70,11 @@ void	get_max_and_push_to_a(t_info *info)
 	{
 		while (elm->value != max)
 		{
-			ope_rotate(info->b);
-			add_opelist(info, "rb");
+			rotate_b(info);
 			elm = info->b->top;
 		}
 	}
-	ope_push(info->b, info->a);
-	add_opelist(info, "pa");
+	push_a(info);
 }
 
 void solver(t_info *info)

@@ -14,7 +14,7 @@ NAME		= push_swap
 CC			= gcc
 CFLAGS	= -Wall -Werror -Wextra
 SRCS		= element.c ft_atol.c ope1.c stack.c utils.c coordinate_compression.c \
-				init_info.c \
+				init_info.c operations1.c \
 				main.c
 HEADERPATH	= -I ./include
 

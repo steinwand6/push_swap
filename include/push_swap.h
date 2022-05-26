@@ -18,6 +18,21 @@ typedef struct s_stack
 	t_element	*bottom;
 }				t_stack;
 
+typedef struct s_opelist;
+{
+	char		*ope;
+    struct s_opelist		*next;
+    struct s_opelist		*prev;
+}				t_opelist;
+
+typedef struct s_info
+{
+	t_stack		*a;
+	t_stack		*b;
+	t_opelist	*opelist;
+	int			count;
+}				t_info;
+
 void push(t_stack *self, t_element *elm);
 t_element *pop(t_stack *self);
 int is_integer_string(char *str);

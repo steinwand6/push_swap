@@ -2,19 +2,7 @@
 
 # include <stdio.h>
 
-void print_stack(t_stack *stack)
-{
-	t_element *el = stack->top;
-	while (el)
-	{
-		printf("%d ->", el->value);
-		el = el->next;
-	}
-	puts("");
-
-}
-
-int	get_medium_value(t_stack *stack)
+int	get_median_value(t_stack *stack)
 {
 	int	size;
 	int	min;
@@ -22,6 +10,73 @@ int	get_medium_value(t_stack *stack)
 	size = get_stack_size(stack);
 	min = get_min_value(stack);
 	return (min + (size / 2));
+}
+
+void push_to_b_without_max(t_info *info)
+{
+	int	med;
+	t_element *elm;
+
+	med = get_median_value(info->a);
+	while (get_min_value(info->a) < med)
+	{
+		elm = info->a->top;
+		if (elm->value <= med)
+		{
+			ope_push(info->a, info->b);
+			add_opelist(info, "pb");
+		}
+		ope_rotate(info->a);
+		add_opelist(info, "ra");
+	}
+	if (get_stack_size(info->a) > 1)
+		push_to_b_without_max(info);
+}
+
+int		get_max_index(t_stack *stack, int max)
+{
+	int			index;
+	t_element	*elm;
+
+	index = 0;
+	elm = stack->top;
+	while (1)
+	{
+		if (max == elm->value)
+			return (index);
+		elm = elm->next;
+		index++;
+	}
+	return (-1);
+}
+
+void	get_max_and_push_to_a(t_info *info)
+{
+	t_element *elm;
+	int		max;
+
+	max = get_max_value(info->b);
+	elm = info->b->top;
+	if (get_max_index(info->b, max) > (get_stack_size(info->b) / 2))
+	{
+		while (elm->value != max)
+		{
+			ope_reverse(info->b);
+			add_opelist(info, "rrb");
+			elm = info->b->top;
+		}
+	}
+	else
+	{
+		while (elm->value != max)
+		{
+			ope_rotate(info->b);
+			add_opelist(info, "rb");
+			elm = info->b->top;
+		}
+	}
+	ope_push(info->b, info->a);
+	add_opelist(info, "pa");
 }
 
 void solver(t_info *info)
@@ -32,28 +87,14 @@ void solver(t_info *info)
 
 	sa = info->a;
 	sb = info->b;
-	while (get_stack_size(sa) > 1)
-	{
-		if (sa->top->value == get_min_value(sa))
-		{
-			ope_push(sa, sb);
-			add_opelist(info, "pb");
-		}
-		else
-		{
-			ope_rotate(sa);
-			add_opelist(info, "ra");
-		}
-	}
+	push_to_b_without_max(info);
 	while (sb->top)
 	{
-		ope_push(sb, sa);
-		add_opelist(info, "pa");
+		get_max_and_push_to_a(info);
 	}
 	while (sa->top)
 	{
 		elm = pop(sa);
-		//printf("%d -> ", elm->value);
 		free(elm);
 	}
 	free(sb);
@@ -90,7 +131,6 @@ int main(int argc, char *argv[])
 	while (info.opelist)
 	{
 		printf("%s\n", info.opelist->op);
-		free(info.opelist->op);
 		info.opelist = info.opelist->next;
 	}
 	free_oplist(list);

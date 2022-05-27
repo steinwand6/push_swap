@@ -60,5 +60,6 @@ void	rotate_b(t_info*);
 void	rotate_a(t_info*);
 void	reverse_a(t_info* info);
 int	is_sorted_asc(t_stack *stack);
+void	swap_ab(t_info* info);
 
 #endif

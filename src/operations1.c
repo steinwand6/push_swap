@@ -24,6 +24,13 @@ void	swap_b(t_info* info)
 	add_opelist(info, "sb");
 }
 
+void	swap_ab(t_info* info)
+{
+	ope_swap(info->a);
+	ope_swap(info->b);
+	add_opelist(info, "ss");
+}
+
 void	rotate_a(t_info* info)
 {
 	ope_rotate(info->a);

@@ -28,6 +28,40 @@ int		get_index_in_stack(t_stack *stack, int to_find)
 	}
 }
 
+void push_to_b_limit_100_order_by_asc(t_info *info)
+{
+	int	limit;
+	int	min;
+	t_element *elm;
+
+	if (is_sorted_asc(info->a))
+		return ;
+	min = get_min_value(info->a);
+	limit = min + 100;
+	while (min < limit)
+	{
+		elm = info->a->top;
+		if (elm->value <= limit)
+			push_b(info);
+		else if (elm->next->value <= limit)
+		{
+			if (info->b->top && info->b->top->value < info->b->top->next->value)
+				swap_ab(info);
+			else
+				swap_a(info);
+			push_b(info);
+		}
+		else if (info->a->bottom->value <= limit)
+		{
+			reverse_a(info);
+			push_b(info);
+		}
+		else
+			rotate_a(info);
+		min = get_min_value(info->a);
+	}
+}
+
 void push_to_b_without_max(t_info *info)
 {
 	int	med;
@@ -99,6 +133,8 @@ void solver(t_info *info)
 
 	sa = info->a;
 	sb = info->b;
+	while (get_stack_size(info->a) > 100)
+		push_to_b_limit_100_order_by_asc(info);
 	push_to_b_without_max(info);
 	while (sb->top)
 	{

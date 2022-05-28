@@ -28,7 +28,7 @@ int		get_index_in_stack(t_stack *stack, int to_find)
 	}
 }
 
-void push_to_b_limit_100_order_by_asc(t_info *info)
+void push_to_b_limit_n_order_by_asc(t_info *info, int n)
 {
 	int	limit;
 	int	min;
@@ -37,7 +37,7 @@ void push_to_b_limit_100_order_by_asc(t_info *info)
 	if (is_sorted_asc(info->a))
 		return ;
 	min = get_min_value(info->a);
-	limit = min + 100;
+	limit = min + n;
 	while (min < limit)
 	{
 		elm = info->a->top;
@@ -132,13 +132,13 @@ void solver(t_info *info)
 
 	sa = info->a;
 	sb = info->b;
-	while (get_stack_size(info->a) > 100 && !is_sorted_asc(info->a))
-		push_to_b_limit_100_order_by_asc(info);
+	while (get_stack_size(info->a) > 250 && !is_sorted_asc(info->a))
+		push_to_b_limit_n_order_by_asc(info, 50);
+	while (get_stack_size(info->a) > 25 && !is_sorted_asc(info->a))
+		push_to_b_limit_n_order_by_asc(info, 25);
 	push_to_b_without_max(info);
 	while (sb->top)
-	{
 		get_max_and_push_to_a(info);
-	}
 	while (sa->top)
 	{
 		elm = pop(sa);

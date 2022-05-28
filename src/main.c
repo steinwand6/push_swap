@@ -45,7 +45,7 @@ void push_to_b_without_max(t_info *info)
 			push_b(info);
 		else if (elm->next->value <= med)
 		{
-			if (info->b->top->value < info->b->top->next->value)
+			if (info->b->top && info->b->top->value < info->b->top->next->value)
 				swap_ab(info);
 			else
 				swap_a(info);

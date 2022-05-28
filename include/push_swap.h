@@ -16,6 +16,8 @@ typedef struct s_stack
 {
 	t_element	*top;
 	t_element	*bottom;
+	int			min;
+	int			max;
 }				t_stack;
 
 typedef struct s_opelist

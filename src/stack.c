@@ -58,5 +58,7 @@ int create_stack_from_array(t_info *info, int *val)
 		push(info->a, new_el);
 		i++;
 	}
+	info->a->max = info->count - 1;
+	info->a->min = 0;
 	return (0);
 }

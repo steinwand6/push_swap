@@ -28,6 +28,29 @@ int		get_index_in_stack(t_stack *stack, int to_find)
 	}
 }
 
+int	is_recommended_rr(t_stack *stack, int limit)
+{
+	t_element	*elm;
+	int	count_a;
+	int	count_b;
+
+	elm = stack->top;
+	count_a = 0;
+	while (elm->value <= limit)
+	{
+		elm = elm->next;
+		count_a++;
+	}
+	elm = stack->bottom;
+	count_b = 1;
+	while (elm->value <= limit)
+	{
+		elm = elm->prev;
+		count_b++;
+	}
+	return (count_a > count_b);
+}
+
 void push_to_b_limit_n_order_by_asc(t_info *info, int n)
 {
 	int	limit;
@@ -90,6 +113,8 @@ void push_to_b_without_max(t_info *info)
 			reverse_a(info);
 			push_b(info);
 		}
+		else if (is_recommended_rr(info->a, med))
+			reverse_a(info);
 		else
 			rotate_a(info);
 	}
@@ -132,10 +157,17 @@ void solver(t_info *info)
 
 	sa = info->a;
 	sb = info->b;
-	while (get_stack_size(info->a) > 250 && !is_sorted_asc(info->a))
+	if (info->count < 100) {
+		while (get_stack_size(info->a) > 25 && !is_sorted_asc(info->a))
+			push_to_b_limit_n_order_by_asc(info, 15);
+	}
+	while (get_stack_size(info->a) > info->count / 2  && !is_sorted_asc(info->a))
 		push_to_b_limit_n_order_by_asc(info, 50);
-	while (get_stack_size(info->a) > 25 && !is_sorted_asc(info->a))
+	while (get_stack_size(info->a) > info->count / 4 && !is_sorted_asc(info->a))
 		push_to_b_limit_n_order_by_asc(info, 25);
+	while (get_stack_size(info->a) > info->count / 8 && !is_sorted_asc(info->a))
+		push_to_b_limit_n_order_by_asc(info, 15);
+
 	push_to_b_without_max(info);
 	while (sb->top)
 		get_max_and_push_to_a(info);

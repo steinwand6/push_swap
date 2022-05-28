@@ -45,7 +45,8 @@ void push_to_b_limit_100_order_by_asc(t_info *info)
 			push_b(info);
 		else if (elm->next->value <= limit)
 		{
-			if (info->b->top && info->b->top->value < info->b->top->next->value)
+			if (info->b->top && info->b->top->next &&
+				info->b->top->value < info->b->top->next->value)
 				swap_ab(info);
 			else
 				swap_a(info);
@@ -77,15 +78,16 @@ void push_to_b_without_max(t_info *info)
 		elm = info->a->top;
 		if (elm->value <= med)
 			push_b(info);
-		else if (elm->next->value <= med)
+		else if (elm->next && elm->next->value <= med)
 		{
-			if (info->b->top && info->b->top->value < info->b->top->next->value)
+			if (info->b->top && info->b->top->next &&
+				info->b->top->value < info->b->top->next->value)
 				swap_ab(info);
 			else
 				swap_a(info);
 			push_b(info);
 		}
-		else if (info->a->bottom->value <= med)
+		else if (info->a->bottom && info->a->bottom->value <= med)
 		{
 			reverse_a(info);
 			push_b(info);
@@ -133,7 +135,7 @@ void solver(t_info *info)
 
 	sa = info->a;
 	sb = info->b;
-	while (get_stack_size(info->a) > 100)
+	while (get_stack_size(info->a) > 100 && !is_sorted_asc(info->a))
 		push_to_b_limit_100_order_by_asc(info);
 	push_to_b_without_max(info);
 	while (sb->top)

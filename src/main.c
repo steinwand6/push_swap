@@ -66,14 +66,12 @@ void push_to_b_limit_100_order_by_asc(t_info *info)
 void push_to_b_without_max(t_info *info)
 {
 	int	med;
-	int	min;
 	t_element *elm;
 
 	if (is_sorted_asc(info->a))
 		return ;
 	med = get_median_value(info->a);
-	min = get_min_value(info->a);
-	while (min < med)
+	while (get_min_value(info->a) < med)
 	{
 		elm = info->a->top;
 		if (elm->value <= med)
@@ -94,7 +92,6 @@ void push_to_b_without_max(t_info *info)
 		}
 		else
 			rotate_a(info);
-		min = get_min_value(info->a);
 	}
 	if (get_stack_size(info->a) > 1)
 		push_to_b_without_max(info);

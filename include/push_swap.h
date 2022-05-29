@@ -68,6 +68,8 @@ int	get_second_value(t_stack *stack);
 int	is_recommended_rr(t_stack *stack, int limit);
 int		get_index_in_stack(t_stack *stack, int to_find);
 int	get_median_value(t_stack *stack);
+void	solve_5_elements(t_info *info);
+void	solve_4_elements(t_info *info);
 void	solve_3_elements(t_info *info);
 void	solve_2_elements(t_info *info);
 void free_opelist(t_opelist *elm);

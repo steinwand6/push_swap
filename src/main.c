@@ -5,8 +5,6 @@ void push_to_b_with_limit(t_info *info, int n)
 	int	limit;
 	t_element *elm;
 
-	if (get_stack_size(info->a) == 1)
-		return ;
 	limit = info->a->min + n;
 	while (info->a->min < limit)
 	{
@@ -74,6 +72,10 @@ void solver(t_info *info)
 		solve_3_elements(info);
 	else if (get_stack_size(info->a) == 2)
 		solve_2_elements(info);
+	else if (get_stack_size(info->a) == 4)
+		solve_4_elements(info);
+	else if (get_stack_size(info->a) == 5)
+		solve_5_elements(info);
 	else
 	{
 		while (get_stack_size(info->a) > 250  && !is_sorted_asc(info->a))

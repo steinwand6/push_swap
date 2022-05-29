@@ -9,8 +9,6 @@ void	solve_3_elements(t_info *info)
 	f = info->a->top;
 	s = f->next;
 	t = s->next;
-	if (is_sorted_asc(info->a))
-		return ;
 	if (f->value < s->value && s->value > t->value && f->value < t->value)
 	{
 		swap_a(info);
@@ -29,3 +27,13 @@ void	solve_3_elements(t_info *info)
 	}
 }
 
+void	solve_2_elements(t_info *info)
+{
+	t_element	*f;
+	t_element	*s;
+
+	f = info->a->top;
+	s = f->next;
+	if (f->value > s->value)
+		swap_a(info);
+}

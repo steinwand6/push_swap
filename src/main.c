@@ -1,4 +1,4 @@
-# include "push_swap.h"
+#include "push_swap.h"
 
 void push_to_b_with_limit(t_info *info, int n)
 {
@@ -72,6 +72,8 @@ void solver(t_info *info)
 	sb = info->b;
 	if (get_stack_size(info->a) == 3)
 		solve_3_elements(info);
+	else if (get_stack_size(info->a) == 2)
+		solve_2_elements(info);
 	else
 	{
 		while (get_stack_size(info->a) > 250  && !is_sorted_asc(info->a))
@@ -112,6 +114,13 @@ int main(int argc, char *argv[])
 	values = coordinate_compression(values, argc - 1);
 	create_stack_from_array(&info, values);
 	reverse_stack(&info);
+		if (is_sorted_asc(info.a))
+	{
+		free_opelist(info.opelist);
+		free_stack(info.b);
+		free_stack(info.a);
+		return 0;
+	}
 	solver(&info);
 	free(values);
 	print_operations(&info);

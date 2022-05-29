@@ -157,7 +157,9 @@ void solver(t_info *info)
 
 	sa = info->a;
 	sb = info->b;
-	if (info->count <= 100) {
+	if (info->count <= 200) {
+		while (get_stack_size(info->a) > 100 && !is_sorted_asc(info->a))
+			push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 5);
 		while (get_stack_size(info->a) > 25 && !is_sorted_asc(info->a))
 			push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 4);
 	}

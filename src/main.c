@@ -1,6 +1,6 @@
 # include "push_swap.h"
 
-void push_to_b_limit_n_order_by_asc(t_info *info, int n)
+void push_to_b_with_limit(t_info *info, int n)
 {
 	int	limit;
 	t_element *elm;
@@ -71,18 +71,18 @@ void solver(t_info *info)
 
 	sb = info->b;
 	if (get_stack_size(info->a) == 3)
-		solve_within_3(info);
+		solve_3_elements(info);
 	else
 	{
 		while (get_stack_size(info->a) > 250  && !is_sorted_asc(info->a))
-			push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a) / 9);
+			push_to_b_with_limit(info, get_stack_size(info->a) / 9);
 		while (get_stack_size(info->a) > 100 && !is_sorted_asc(info->a))
-			push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 5);
+			push_to_b_with_limit(info, get_stack_size(info->a)/ 5);
 		while (get_stack_size(info->a) > 25 && !is_sorted_asc(info->a))
-			push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 4);
+			push_to_b_with_limit(info, get_stack_size(info->a)/ 4);
 		while (get_stack_size(info->a) > 1)
-			push_to_b_limit_n_order_by_asc(info, 15);
-		push_to_b_limit_n_order_by_asc(info, info->a->max-1);
+			push_to_b_with_limit(info, 15);
+		push_to_b_with_limit(info, info->a->max-1);
 		while (sb->top)
 			get_max_and_push_to_a(info);
 	}

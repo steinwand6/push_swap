@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	solve_within_3(t_info *info)
+void	solve_3_elements(t_info *info)
 {
 	t_element	*f;
 	t_element	*s;

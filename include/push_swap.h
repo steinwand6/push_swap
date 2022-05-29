@@ -69,5 +69,7 @@ int	is_recommended_rr(t_stack *stack, int limit);
 int		get_index_in_stack(t_stack *stack, int to_find);
 int	get_median_value(t_stack *stack);
 void	solve_within_3(t_info *info);
+void free_opelist(t_opelist *elm);
+void free_stack(t_stack  *stack);
 
 #endif

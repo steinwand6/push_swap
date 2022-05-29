@@ -88,19 +88,6 @@ void solver(t_info *info)
 	}
 }
 
-void free_opelist(t_opelist *elm)
-{
-	t_opelist *tmp;
-
-	while (elm)
-	{
-		free(elm->op);
-		tmp = elm->next;
-		free(elm);
-		elm = tmp;
-	}
-}
-
 void print_operations(t_info *info)
 {
 	t_opelist *list;
@@ -117,7 +104,6 @@ int main(int argc, char *argv[])
 {
 	t_info info;
 	int *values;
-	t_element *elm;
 
 	if (argc == 1 || argc == 2)
 		return (0);
@@ -130,11 +116,6 @@ int main(int argc, char *argv[])
 	free(values);
 	print_operations(&info);
 	free_opelist(info.opelist);
-	while (info.a->top)
-	{
-		elm = pop(info.a);
-		free(elm);
-	}
-	free(info.b);
-	free(info.a);
+	free_stack(info.b);
+	free_stack(info.a);
 }

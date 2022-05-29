@@ -162,16 +162,12 @@ void solver(t_info *info)
 
 	sa = info->a;
 	sb = info->b;
-	if (info->count <= 200) {
-		while (get_stack_size(info->a) > 100 && !is_sorted_asc(info->a))
+	while (get_stack_size(info->a) > 250  && !is_sorted_asc(info->a))
+		push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a) / 10);
+	while (get_stack_size(info->a) > 100 && !is_sorted_asc(info->a))
 			push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 5);
-		while (get_stack_size(info->a) > 25 && !is_sorted_asc(info->a))
-			push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 4);
-	}
-	while (get_stack_size(info->a) > info->count / 2  && !is_sorted_asc(info->a))
-		push_to_b_limit_n_order_by_asc(info, 50);
-	while (get_stack_size(info->a) > info->count / 4 && !is_sorted_asc(info->a))
-		push_to_b_limit_n_order_by_asc(info, 25);
+	while (get_stack_size(info->a) > 25 && !is_sorted_asc(info->a))
+		push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 4);
 	while (get_stack_size(info->a) > 1)
 		push_to_b_limit_n_order_by_asc(info, 15);
 

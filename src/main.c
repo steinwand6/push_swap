@@ -64,7 +64,7 @@ void push_to_b_limit_n_order_by_asc(t_info *info, int n)
 	while (min < limit)
 	{
 		elm = info->a->top;
-		if (elm->value != info->a->max && elm->value > info->b->max - n/2)
+		if (elm->value != info->a->max && elm->value > info->b->max - n / 2)
 		{
 			push_b(info);
 			rotate_b(info);

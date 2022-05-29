@@ -55,6 +55,15 @@ void	rotate_b(t_info* info)
 	add_opelist(info, "rb");
 }
 
+void	rotate_ab(t_info* info)
+{
+	if (info->b->top == NULL || info->b->top->next == NULL)
+		return ;
+	ope_rotate(info->a);
+	ope_rotate(info->b);
+	add_opelist(info, "rr");
+}
+
 void	reverse_a(t_info* info)
 {
 	ope_reverse(info->a);

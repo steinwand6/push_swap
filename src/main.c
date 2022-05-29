@@ -68,11 +68,8 @@ void	get_max_and_push_to_a(t_info *info)
 
 void solver(t_info *info)
 {
-	t_stack *sa;
 	t_stack *sb;
-	t_element *elm;
 
-	sa = info->a;
 	sb = info->b;
 	if (get_stack_size(info->a) == 3)
 		solve_within_3(info);
@@ -90,12 +87,6 @@ void solver(t_info *info)
 		while (sb->top)
 			get_max_and_push_to_a(info);
 	}
-	while (sa->top)
-	{
-		elm = pop(sa);
-		free(elm);
-	}
-	free(sb);
 }
 
 void free_oplist(t_opelist *elm)
@@ -115,6 +106,7 @@ int main(int argc, char *argv[])
 {
 	t_info info;
 	int *values;
+	t_element *elm;
 
 	if (argc == 1 || argc == 2)
 		return (0);
@@ -132,5 +124,11 @@ int main(int argc, char *argv[])
 		info.opelist = info.opelist->next;
 	}
 	free_oplist(list);
+	while (info.a->top)
+	{
+		elm = pop(info.a);
+		free(elm);
+	}
+	free(info.b);
 	free(info.a);
 }

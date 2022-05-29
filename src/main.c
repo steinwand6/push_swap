@@ -64,6 +64,12 @@ void push_to_b_limit_n_order_by_asc(t_info *info, int n)
 	while (min < limit)
 	{
 		elm = info->a->top;
+		if (elm->value != info->a->max && elm->value > info->b->max - n/2)
+		{
+			push_b(info);
+			rotate_b(info);
+			elm = info->a->top;
+		}
 		if (elm->value <= limit)
 			push_b(info);
 		else if (elm->next->value <= limit)
@@ -125,13 +131,11 @@ void push_to_b_without_max(t_info *info)
 void	get_max_and_push_to_a(t_info *info)
 {
 	t_element *elm;
-	int		max;
 
-	max = get_max_value(info->b);
 	elm = info->b->top;
-	if (get_index_in_stack(info->b, max) > (get_stack_size(info->b) / 2))
+	if (get_index_in_stack(info->b, info->b->max) > (get_stack_size(info->b) / 2))
 	{
-		while (elm->value != max)
+		while (elm->value != info->b->max)
 		{
 			ope_reverse(info->b);
 			add_opelist(info, "rrb");
@@ -140,7 +144,7 @@ void	get_max_and_push_to_a(t_info *info)
 	}
 	else
 	{
-		while (elm->value != max)
+		while (elm->value != info->b->max)
 		{
 			rotate_b(info);
 			elm = info->b->top;
@@ -170,7 +174,7 @@ void solver(t_info *info)
 	while (get_stack_size(info->a) > info->count / 8 && !is_sorted_asc(info->a))
 		push_to_b_limit_n_order_by_asc(info, 15);
 
-	push_to_b_without_max(info);
+	push_to_b_limit_n_order_by_asc(info, info->a->max-1);
 	while (sb->top)
 		get_max_and_push_to_a(info);
 	while (sa->top)

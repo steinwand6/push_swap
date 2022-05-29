@@ -8,7 +8,6 @@ void	init_info(t_info *info, int count)
 	info->b = new_stack();
 	if (info->b == NULL)
 		exit(1);
-	info->b->max = 0;
 	info->b->min = INT_MAX;
 	info->opelist = NULL;
 	info->count = count - 1;

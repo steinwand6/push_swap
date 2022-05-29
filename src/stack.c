@@ -59,6 +59,7 @@ int create_stack_from_array(t_info *info, int *val)
 		i++;
 	}
 	info->a->max = info->count - 1;
+	info->b->max = info->count - 1;
 	info->a->min = 0;
 	return (0);
 }

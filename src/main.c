@@ -51,6 +51,22 @@ int	is_recommended_rr(t_stack *stack, int limit)
 	return (count_a > count_b);
 }
 
+int	get_second_value(t_stack *stack)
+{
+	int second;
+	t_element *elm;
+
+	second = 0;
+	elm = stack->top;
+	while (elm)
+	{
+		if (second < elm->value && elm->value != stack->max)
+			second = elm->value;
+		elm = elm->next;
+	}
+	return (second);
+}
+
 void push_to_b_limit_n_order_by_asc(t_info *info, int n)
 {
 	int	limit;
@@ -62,14 +78,14 @@ void push_to_b_limit_n_order_by_asc(t_info *info, int n)
 	while (info->a->min < limit)
 	{
 		elm = info->a->top;
-		if (elm->value != info->a->max && elm->value > info->b->max - n)
+		if (elm->value <= limit)
+			push_b(info);
+		else if (elm->value != info->a->max && elm->value > get_second_value(info->a) - (n / 2))
 		{
 			push_b(info);
 			rotate_b(info);
 			elm = info->a->top;
 		}
-		else if (elm->value <= limit)
-			push_b(info);
 		else if (elm->next->value <= limit)
 		{
 			if (info->b->top && info->b->top->next &&
@@ -131,7 +147,6 @@ void solver(t_info *info)
 		push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 4);
 	while (get_stack_size(info->a) > 1)
 		push_to_b_limit_n_order_by_asc(info, 15);
-
 	push_to_b_limit_n_order_by_asc(info, info->a->max-1);
 	while (sb->top)
 		get_max_and_push_to_a(info);

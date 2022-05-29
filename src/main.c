@@ -69,14 +69,14 @@ void push_to_b_limit_n_order_by_asc(t_info *info, int n)
 			push_b(info);
 			rotate_b(info);
 			elm = info->a->top;
-			continue;
 		}
-		if (elm->value <= limit)
+		else if (elm->value <= limit)
 			push_b(info);
 		else if (elm->next->value <= limit)
 		{
 			if (info->b->top && info->b->top->next &&
-				info->b->top->value < info->b->top->next->value)
+				info->b->top->value < info->b->top->next->value &&
+				info->b->top->next->value <= limit)
 				swap_ab(info);
 			else
 				swap_a(info);

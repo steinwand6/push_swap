@@ -1,7 +1,5 @@
 # include "push_swap.h"
 
-# include <stdio.h>
-
 void push_to_b_limit_n_order_by_asc(t_info *info, int n)
 {
 	int	limit;

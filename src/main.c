@@ -172,7 +172,7 @@ void solver(t_info *info)
 		push_to_b_limit_n_order_by_asc(info, 50);
 	while (get_stack_size(info->a) > info->count / 4 && !is_sorted_asc(info->a))
 		push_to_b_limit_n_order_by_asc(info, 25);
-	while (get_stack_size(info->a) > info->count / 8 && !is_sorted_asc(info->a))
+	while (get_stack_size(info->a) > 1)
 		push_to_b_limit_n_order_by_asc(info, 15);
 
 	push_to_b_limit_n_order_by_asc(info, info->a->max-1);

@@ -2,71 +2,6 @@
 
 # include <stdio.h>
 
-int	get_median_value(t_stack *stack)
-{
-	int	size;
-	int	min;
-
-	size = get_stack_size(stack);
-	min = get_min_value(stack);
-	return (min + (size / 2));
-}
-
-int		get_index_in_stack(t_stack *stack, int to_find)
-{
-	int			index;
-	t_element	*elm;
-
-	index = 0;
-	elm = stack->top;
-	while (1)
-	{
-		if (to_find == elm->value)
-			return (index);
-		elm = elm->next;
-		index++;
-	}
-}
-
-int	is_recommended_rr(t_stack *stack, int limit)
-{
-	t_element	*elm;
-	int	count_a;
-	int	count_b;
-
-	elm = stack->top;
-	count_a = 0;
-	while (elm->value <= limit)
-	{
-		elm = elm->next;
-		count_a++;
-	}
-	elm = stack->bottom;
-	count_b = 1;
-	while (elm->value <= limit)
-	{
-		elm = elm->prev;
-		count_b++;
-	}
-	return (count_a > count_b);
-}
-
-int	get_second_value(t_stack *stack)
-{
-	int second;
-	t_element *elm;
-
-	second = 0;
-	elm = stack->top;
-	while (elm)
-	{
-		if (second < elm->value && elm->value != stack->max)
-			second = elm->value;
-		elm = elm->next;
-	}
-	return (second);
-}
-
 void push_to_b_limit_n_order_by_asc(t_info *info, int n)
 {
 	int	limit;
@@ -129,35 +64,6 @@ void	get_max_and_push_to_a(t_info *info)
 		}
 	}
 	push_a(info);
-}
-
-void	solve_within_3(t_info *info)
-{
-	t_element	*f;
-	t_element	*s;
-	t_element	*t;
-
-	f = info->a->top;
-	s = f->next;
-	t = s->next;
-	if (is_sorted_asc(info->a))
-		return ;
-	if (f->value < s->value && s->value > t->value && f->value < t->value)
-	{
-		swap_a(info);
-		rotate_a(info);
-	}
-	else if (f->value > s->value && s->value < t->value && f->value < t->value)
-		swap_a(info);
-	else if (f->value < s->value && s->value > t->value && f->value > t->value)
-		reverse_a(info);
-	else if (f->value > s->value && s->value < t->value && f->value > t->value)
-		rotate_a(info);
-	else
-	{
-		swap_a(info);
-		reverse_a(info);
-	}
 }
 
 void solver(t_info *info)

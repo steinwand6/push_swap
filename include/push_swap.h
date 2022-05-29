@@ -64,5 +64,10 @@ void	rotate_ab(t_info* info);
 void	reverse_a(t_info* info);
 int	is_sorted_asc(t_stack *stack);
 void	swap_ab(t_info* info);
+int	get_second_value(t_stack *stack);
+int	is_recommended_rr(t_stack *stack, int limit);
+int		get_index_in_stack(t_stack *stack, int to_find);
+int	get_median_value(t_stack *stack);
+void	solve_within_3(t_info *info);
 
 #endif

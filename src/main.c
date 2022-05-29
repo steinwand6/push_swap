@@ -15,7 +15,8 @@ void push_to_b_limit_n_order_by_asc(t_info *info, int n)
 		elm = info->a->top;
 		if (elm->value <= limit)
 			push_b(info);
-		else if (elm->value != info->a->max && elm->value > get_second_value(info->a) - (n / 2))
+		else if (elm->value != info->a->max &&
+				 elm->value > get_second_value(info->a) - (n / 2))
 		{
 			push_b(info);
 			rotate_b(info);
@@ -89,7 +90,7 @@ void solver(t_info *info)
 	}
 }
 
-void free_oplist(t_opelist *elm)
+void free_opelist(t_opelist *elm)
 {
 	t_opelist *tmp;
 
@@ -99,6 +100,18 @@ void free_oplist(t_opelist *elm)
 		tmp = elm->next;
 		free(elm);
 		elm = tmp;
+	}
+}
+
+void print_operations(t_info *info)
+{
+	t_opelist *list;
+
+	list = info->opelist;
+	while (list)
+	{
+		ft_putendl_fd(list->op, 1);
+		list = list->next;
 	}
 }
 
@@ -117,13 +130,8 @@ int main(int argc, char *argv[])
 	reverse_stack(&info);
 	solver(&info);
 	free(values);
-	t_opelist *list = info.opelist;
-	while (info.opelist)
-	{
-		printf("%s\n", info.opelist->op);
-		info.opelist = info.opelist->next;
-	}
-	free_oplist(list);
+	print_operations(&info);
+	free_opelist(info.opelist);
 	while (info.a->top)
 	{
 		elm = pop(info.a);

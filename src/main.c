@@ -56,7 +56,7 @@ void push_to_b_limit_n_order_by_asc(t_info *info, int n)
 	int	limit;
 	t_element *elm;
 
-	if (is_sorted_asc(info->a))
+	if (get_stack_size(info->a) == 1)
 		return ;
 	limit = info->a->min + n;
 	while (info->a->min < limit)
@@ -88,42 +88,6 @@ void push_to_b_limit_n_order_by_asc(t_info *info, int n)
 		else
 			rotate_a(info);
 	}
-}
-
-void push_to_b_without_max(t_info *info)
-{
-	int	med;
-	t_element *elm;
-
-	if (is_sorted_asc(info->a))
-		return ;
-	med = get_median_value(info->a);
-	while (get_min_value(info->a) < med)
-	{
-		elm = info->a->top;
-		if (elm->value <= med)
-			push_b(info);
-		else if (elm->next && elm->next->value <= med)
-		{
-			if (info->b->top && info->b->top->next &&
-				info->b->top->value < info->b->top->next->value)
-				swap_ab(info);
-			else
-				swap_a(info);
-			push_b(info);
-		}
-		else if (info->a->bottom && info->a->bottom->value <= med)
-		{
-			reverse_a(info);
-			push_b(info);
-		}
-		else if (is_recommended_rr(info->a, med))
-			reverse_a(info);
-		else
-			rotate_a(info);
-	}
-	if (get_stack_size(info->a) > 1)
-		push_to_b_without_max(info);
 }
 
 void	get_max_and_push_to_a(t_info *info)
@@ -160,9 +124,9 @@ void solver(t_info *info)
 	sa = info->a;
 	sb = info->b;
 	while (get_stack_size(info->a) > 250  && !is_sorted_asc(info->a))
-		push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a) / 10);
+		push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a) / 9);
 	while (get_stack_size(info->a) > 100 && !is_sorted_asc(info->a))
-			push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 5);
+		push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 5);
 	while (get_stack_size(info->a) > 25 && !is_sorted_asc(info->a))
 		push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 4);
 	while (get_stack_size(info->a) > 1)

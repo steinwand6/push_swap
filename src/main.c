@@ -131,6 +131,35 @@ void	get_max_and_push_to_a(t_info *info)
 	push_a(info);
 }
 
+void	solve_within_3(t_info *info)
+{
+	t_element	*f;
+	t_element	*s;
+	t_element	*t;
+
+	f = info->a->top;
+	s = f->next;
+	t = s->next;
+	if (is_sorted_asc(info->a))
+		return ;
+	if (f->value < s->value && s->value > t->value && f->value < t->value)
+	{
+		swap_a(info);
+		rotate_a(info);
+	}
+	else if (f->value > s->value && s->value < t->value && f->value < t->value)
+		swap_a(info);
+	else if (f->value < s->value && s->value > t->value && f->value > t->value)
+		reverse_a(info);
+	else if (f->value > s->value && s->value < t->value && f->value > t->value)
+		rotate_a(info);
+	else
+	{
+		swap_a(info);
+		reverse_a(info);
+	}
+}
+
 void solver(t_info *info)
 {
 	t_stack *sa;
@@ -139,17 +168,22 @@ void solver(t_info *info)
 
 	sa = info->a;
 	sb = info->b;
-	while (get_stack_size(info->a) > 250  && !is_sorted_asc(info->a))
-		push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a) / 9);
-	while (get_stack_size(info->a) > 100 && !is_sorted_asc(info->a))
-		push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 5);
-	while (get_stack_size(info->a) > 25 && !is_sorted_asc(info->a))
-		push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 4);
-	while (get_stack_size(info->a) > 1)
-		push_to_b_limit_n_order_by_asc(info, 15);
-	push_to_b_limit_n_order_by_asc(info, info->a->max-1);
-	while (sb->top)
-		get_max_and_push_to_a(info);
+	if (get_stack_size(info->a) == 3)
+		solve_within_3(info);
+	else
+	{
+		while (get_stack_size(info->a) > 250  && !is_sorted_asc(info->a))
+			push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a) / 9);
+		while (get_stack_size(info->a) > 100 && !is_sorted_asc(info->a))
+			push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 5);
+		while (get_stack_size(info->a) > 25 && !is_sorted_asc(info->a))
+			push_to_b_limit_n_order_by_asc(info, get_stack_size(info->a)/ 4);
+		while (get_stack_size(info->a) > 1)
+			push_to_b_limit_n_order_by_asc(info, 15);
+		push_to_b_limit_n_order_by_asc(info, info->a->max-1);
+		while (sb->top)
+			get_max_and_push_to_a(info);
+	}
 	while (sa->top)
 	{
 		elm = pop(sa);

@@ -54,14 +54,12 @@ int	is_recommended_rr(t_stack *stack, int limit)
 void push_to_b_limit_n_order_by_asc(t_info *info, int n)
 {
 	int	limit;
-	int	min;
 	t_element *elm;
 
 	if (is_sorted_asc(info->a))
 		return ;
-	min = get_min_value(info->a);
-	limit = min + n;
-	while (min < limit)
+	limit = info->a->min + n;
+	while (info->a->min < limit)
 	{
 		elm = info->a->top;
 		if (elm->value != info->a->max && elm->value > info->b->max - n)
@@ -89,7 +87,6 @@ void push_to_b_limit_n_order_by_asc(t_info *info, int n)
 		}
 		else
 			rotate_a(info);
-		min = get_min_value(info->a);
 	}
 }
 

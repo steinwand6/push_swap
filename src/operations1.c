@@ -57,6 +57,8 @@ void	rotate_b(t_info* info)
 
 void	rotate_ab(t_info* info)
 {
+	if (info->a->top == NULL || info->a->top->next == NULL)
+		return ;
 	if (info->b->top == NULL || info->b->top->next == NULL)
 		return ;
 	ope_rotate(info->a);

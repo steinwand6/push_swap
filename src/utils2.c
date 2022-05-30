@@ -32,22 +32,6 @@ int	get_median_value(t_stack *stack)
 	return (min + (size / 2));
 }
 
-int		get_index_in_stack(t_stack *stack, int to_find)
-{
-	int			index;
-	t_element	*elm;
-
-	index = 0;
-	elm = stack->top;
-	while (1)
-	{
-		if (to_find == elm->value)
-			return (index);
-		elm = elm->next;
-		index++;
-	}
-}
-
 int	is_recommended_rr(t_stack *stack, int limit)
 {
 	t_element	*elm;

@@ -63,3 +63,19 @@ int create_stack_from_array(t_info *info, int *val)
 	info->a->min = 0;
 	return (0);
 }
+
+int		get_index_in_stack(t_stack *stack, int to_find)
+{
+	int			index;
+	t_element	*elm;
+
+	index = 0;
+	elm = stack->top;
+	while (1)
+	{
+		if (to_find == elm->value)
+			return (index);
+		elm = elm->next;
+		index++;
+	}
+}

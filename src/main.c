@@ -25,38 +25,40 @@ void smart_swap(t_info *info, int n)
 		swap_a(info);
 }
 
+void push_core(t_info *info, int limit, int n)
+{
+	t_element *elm;
+
+	elm = info->a->top;
+	if (elm->value <= limit)
+		push_b(info);
+	else if (elm->value != info->a->max && (elm->value > limit)
+			 && (elm->value <= limit + (n /  3 * 2)))
+	{
+		push_b(info);
+		smart_rotate(info, n);
+	}
+	else if (elm->next->value <= limit)
+	{
+		smart_swap(info, n);
+		push_b(info);
+	}
+	else if (info->a->bottom->value <= limit)
+	{
+		reverse_a(info);
+		push_b(info);
+	}
+	else
+		rotate_a(info);
+}
+
 void push_to_b_with_limit(t_info *info, int n)
 {
 	int	limit;
-	t_element *elm;
-
+	
 	limit = info->a->min + n;
 	while (info->a->min < limit)
-	{
-		elm = info->a->top;
-		if (elm->value <= limit)
-			push_b(info);
-		else if (elm->value != info->a->max &&
-				 (elm->value > limit)
-				 && (elm->value <= limit + (n /  3 * 2)))
-		{
-			push_b(info);
-			smart_rotate(info, n);
-			elm = info->a->top;
-		}
-		else if (elm->next->value <= limit)
-		{
-			smart_swap(info, n);
-			push_b(info);
-		}
-		else if (info->a->bottom->value <= limit)
-		{
-			reverse_a(info);
-			push_b(info);
-		}
-		else
-			rotate_a(info);
-	}
+		push_core(info, limit, n);
 }
 
 void	get_max_and_push_to_a(t_info *info)
@@ -93,8 +95,6 @@ void solver(t_info *info)
 		solver_less_than_eq_5(info);
 	else
 	{
-		while (get_stack_size(info->a) >= 300  && !is_sorted_asc(info->a))
-			push_to_b_with_limit(info, get_stack_size(info->a) / 9);
 		while (get_stack_size(info->a) >= 200  && !is_sorted_asc(info->a))
 			push_to_b_with_limit(info, get_stack_size(info->a) / 7);
 		while (get_stack_size(info->a) >= 100 && !is_sorted_asc(info->a))

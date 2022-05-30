@@ -64,26 +64,29 @@ void push_to_b_with_limit(t_info *info, int n)
 void	get_max_and_push_to_a(t_info *info)
 {
 	t_element *elm;
+	int flg = 0;
 
 	elm = info->b->top;
-	if (get_index_in_stack(info->b, info->b->max) > (get_stack_size(info->b) / 2))
+	while (elm->value != info->b->max)
 	{
-		while (elm->value != info->b->max)
-		{
-			ope_reverse(info->b);
-			add_opelist(info, "rrb");
-			elm = info->b->top;
-		}
-	}
-	else
-	{
-		while (elm->value != info->b->max)
-		{
+		if (get_index_in_stack(info->b, info->b->max)
+			>(get_stack_size(info->b) / 2))
+			reverse_b(info);
+		else
 			rotate_b(info);
-			elm = info->b->top;
+		elm = info->b->top;
+		if (flg == 0 && elm->value == info->b->max - 1)
+		{
+			push_a(info);
+			flg = 1;
 		}
 	}
 	push_a(info);
+	if (flg)
+	{
+		flg = 0;
+		swap_a(info);
+	}
 }
 
 void solver(t_info *info)

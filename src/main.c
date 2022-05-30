@@ -1,21 +1,5 @@
 #include "push_swap.h"
 
-int	get_rough_indicate(t_info *info)
-{
-	t_element	*elm;
-	int			i;
-
-	elm = info->a->top;
-	i = info->a->max;
-	while (elm)
-	{
-		if ((elm->value > (info->count / 2)) && (i > elm->value))
-			i = elm->value;
-		elm = elm->next;
-	}
-	return i;
-}
-
 void push_to_b_with_limit(t_info *info, int n)
 {
 	int	limit;
@@ -99,15 +83,13 @@ void solver(t_info *info)
 		solve_5_elements(info);
 	else
 	{
-		while (get_stack_size(info->a) > 400  && !is_sorted_asc(info->a))
-			push_to_b_with_limit(info, get_stack_size(info->a) / 10);
-		while (get_stack_size(info->a) > 300  && !is_sorted_asc(info->a))
-			push_to_b_with_limit(info, get_stack_size(info->a) / 8);
-		while (get_stack_size(info->a) > 200  && !is_sorted_asc(info->a))
-			push_to_b_with_limit(info, get_stack_size(info->a) / 6);
-		while (get_stack_size(info->a) > 100 && !is_sorted_asc(info->a))
+		while (get_stack_size(info->a) >= 300  && !is_sorted_asc(info->a))
+			push_to_b_with_limit(info, get_stack_size(info->a) / 9);
+		while (get_stack_size(info->a) >= 200  && !is_sorted_asc(info->a))
+			push_to_b_with_limit(info, get_stack_size(info->a) / 7);
+		while (get_stack_size(info->a) >= 100 && !is_sorted_asc(info->a))
 			push_to_b_with_limit(info, get_stack_size(info->a)/ 5);
-		while (get_stack_size(info->a) > 25 && !is_sorted_asc(info->a))
+		while (get_stack_size(info->a) > 10 && !is_sorted_asc(info->a))
 			push_to_b_with_limit(info, get_stack_size(info->a)/ 4);
 		while (get_stack_size(info->a) > 1)
 			push_to_b_with_limit(info, 15);

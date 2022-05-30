@@ -1,5 +1,21 @@
 #include "push_swap.h"
 
+int	get_rough_indicate(t_info *info)
+{
+	t_element	*elm;
+	int			i;
+
+	elm = info->a->top;
+	i = info->a->max;
+	while (elm)
+	{
+		if ((elm->value > (info->count / 2)) && (i > elm->value))
+			i = elm->value;
+		elm = elm->next;
+	}
+	return i;
+}
+
 void push_to_b_with_limit(t_info *info, int n)
 {
 	int	limit;
@@ -12,10 +28,15 @@ void push_to_b_with_limit(t_info *info, int n)
 		if (elm->value <= limit)
 			push_b(info);
 		else if (elm->value != info->a->max &&
-				 elm->value > get_second_value(info->a) - (n / 2))
+				 (elm->value > limit)
+				 && (elm->value <= limit + (n /  3 * 2)))
 		{
 			push_b(info);
-			rotate_b(info);
+			if (info->a->top->value > limit &&
+				!(info->a->top->value <= limit + (n /  3 * 2)))
+				rotate_ab(info);
+			else
+				rotate_b(info);
 			elm = info->a->top;
 		}
 		else if (elm->next->value <= limit)
@@ -78,8 +99,12 @@ void solver(t_info *info)
 		solve_5_elements(info);
 	else
 	{
-		while (get_stack_size(info->a) > 250  && !is_sorted_asc(info->a))
-			push_to_b_with_limit(info, get_stack_size(info->a) / 9);
+		while (get_stack_size(info->a) > 400  && !is_sorted_asc(info->a))
+			push_to_b_with_limit(info, get_stack_size(info->a) / 10);
+		while (get_stack_size(info->a) > 300  && !is_sorted_asc(info->a))
+			push_to_b_with_limit(info, get_stack_size(info->a) / 8);
+		while (get_stack_size(info->a) > 200  && !is_sorted_asc(info->a))
+			push_to_b_with_limit(info, get_stack_size(info->a) / 6);
 		while (get_stack_size(info->a) > 100 && !is_sorted_asc(info->a))
 			push_to_b_with_limit(info, get_stack_size(info->a)/ 5);
 		while (get_stack_size(info->a) > 25 && !is_sorted_asc(info->a))

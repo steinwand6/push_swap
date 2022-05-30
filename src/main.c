@@ -85,7 +85,10 @@ void	get_max_and_push_to_a(t_info *info)
 	if (flg)
 	{
 		flg = 0;
-		swap_a(info);
+		if (info->b->top->value < info->b->top->next->value)
+			swap_ab(info);
+		else
+			swap_a(info);
 	}
 }
 

@@ -73,14 +73,8 @@ void solver(t_info *info)
 	t_stack *sb;
 
 	sb = info->b;
-	if (get_stack_size(info->a) == 3)
-		solve_3_elements(info);
-	else if (get_stack_size(info->a) == 2)
-		solve_2_elements(info);
-	else if (get_stack_size(info->a) == 4)
-		solve_4_elements(info);
-	else if (get_stack_size(info->a) == 5)
-		solve_5_elements(info);
+	if (get_stack_size(info->a) <= 5)
+		solver_less_than_eq_5(info);
 	else
 	{
 		while (get_stack_size(info->a) >= 300  && !is_sorted_asc(info->a))

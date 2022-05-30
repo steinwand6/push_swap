@@ -95,6 +95,8 @@ void solver(t_info *info)
 		solver_less_than_eq_5(info);
 	else
 	{
+		while (get_stack_size(info->a) >= 300  && !is_sorted_asc(info->a))
+			push_to_b_with_limit(info, get_stack_size(info->a) / 9);
 		while (get_stack_size(info->a) >= 200  && !is_sorted_asc(info->a))
 			push_to_b_with_limit(info, get_stack_size(info->a) / 7);
 		while (get_stack_size(info->a) >= 100 && !is_sorted_asc(info->a))

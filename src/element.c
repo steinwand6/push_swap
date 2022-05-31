@@ -1,8 +1,8 @@
 #include "push_swap.h"
 
-t_element *new_element(int value)
+t_element	*new_element(int value)
 {
-	t_element *ptr;
+	t_element	*ptr;
 
 	ptr = malloc(sizeof(t_element));
 	if (ptr == NULL)
@@ -10,13 +10,13 @@ t_element *new_element(int value)
 	ptr->value = value;
 	ptr->prev = NULL;
 	ptr->next = NULL;
-	return ptr;
+	return (ptr);
 }
 
-int		*convert_array(char **argv, int size)
+int	*convert_array(char **argv, int size)
 {
-	int *array;
-	int	i;
+	int		*array;
+	int		i;
 	long	val;
 
 	array = malloc(sizeof(int) * (size + 1));
@@ -33,5 +33,5 @@ int		*convert_array(char **argv, int size)
 		array[i] = val;
 		i++;
 	}
-	return array;
+	return (array);
 }

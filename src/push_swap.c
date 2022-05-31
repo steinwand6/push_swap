@@ -1,23 +1,23 @@
 #include "push_swap.h"
 
-void push_to_b_with_limit(t_info *info, int n)
+void	push_to_b_with_limit(t_info *info, int n)
 {
 	int	limit;
-	
+
 	limit = info->a->min + n;
 	while (get_stack_size(info->a) > 0 && info->a->min < limit)
 		push_worker(info, limit, n);
 }
 
-void push_worker(t_info *info, int limit, int n)
+void	push_worker(t_info *info, int limit, int n)
 {
-	t_element *elm;
+	t_element	*elm;
 
 	elm = info->a->top;
 	if (elm->value <= limit)
 		push_b(info);
 	else if (elm->value != info->a->max && (elm->value > limit)
-			 && (elm->value <= limit + (n /  3 * 2)))
+		 && (elm->value <= limit + (n / 3 * 2)))
 	{
 		push_b(info);
 		smart_rotate(info, n);
@@ -38,12 +38,13 @@ void push_worker(t_info *info, int limit, int n)
 
 void	get_max_and_push_to_a(t_info *info)
 {
-	int flg = 0;
+	int	flg;
 
+	flg = 0;
 	while (info->b->top->value != info->b->max)
 	{
 		if (get_index_in_stack(info->b, info->b->max)
-			>(get_stack_size(info->b) / 2))
+			> (get_stack_size(info->b) / 2))
 			reverse_b(info);
 		else
 			rotate_b(info);

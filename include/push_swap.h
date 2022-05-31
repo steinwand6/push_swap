@@ -75,5 +75,10 @@ void free_opelist(t_opelist *elm);
 void free_stack(t_stack  *stack);
 void	solver_less_than_eq_5(t_info *info);
 void deinit_info(t_info *info);
+void	get_max_and_push_to_a(t_info *info);
+void push_to_b_with_limit(t_info *info, int n);
+void push_worker(t_info *info, int limit, int n);
+void smart_rotate(t_info *info, int n);
+void smart_swap(t_info *info, int n);
 
 #endif

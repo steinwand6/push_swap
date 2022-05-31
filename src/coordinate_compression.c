@@ -1,9 +1,9 @@
 #include "push_swap.h"
 
-static int		*copy_array(int *array, size_t size)
+static int	*copy_array(int *array, size_t size)
 {
-	int	*vals;
-	size_t i;
+	int		*vals;
+	size_t	i;
 
 	vals = malloc(sizeof(int) * size);
 	if (vals == NULL)
@@ -14,10 +14,10 @@ static int		*copy_array(int *array, size_t size)
 		vals[i] = array[i];
 		i++;
 	}
-	return vals;
+	return (vals);
 }
 
-static void		quick_sort(int *array, int left, int right)
+static void	quick_sort(int *array, int left, int right)
 {
 	int	shaft;
 	int	temp;
@@ -31,10 +31,12 @@ static void		quick_sort(int *array, int left, int right)
 		j = right + 1;
 		while (1)
 		{
-			while (array[++i] < shaft);
-			while (array[--j] > shaft);
+			while (array[++i] < shaft)
+				;
+			while (array[--j] > shaft)
+				;
 			if (i >= j)
-				break;
+				break ;
 			temp = array[i];
 			array[i] = array[j];
 			array[j] = temp;
@@ -47,7 +49,7 @@ static void		quick_sort(int *array, int left, int right)
 int	check_duplicate(int *array, int size)
 {
 	int	prev;
-	int i;
+	int	i;
 
 	prev = array[0];
 	i = 1;
@@ -69,19 +71,19 @@ int	get_index(int to_find, int *array, int left, int right)
 	{
 		middle = (left + right) / 2;
 		if (to_find == array[middle])
-			break;
+			break ;
 		else if (to_find < array[middle])
 			right = middle;
 		else
 			left = middle;
 	}
-	return (left + right) / 2;
+	return ((left + right) / 2);
 }
 
 int	*coordinate_compression(int *sa, int size)
 {
-	int *vals;
-	int i;
+	int	*vals;
+	int	i;
 
 	vals = copy_array(sa, size);
 	quick_sort(vals, 0, size - 1);
@@ -93,5 +95,5 @@ int	*coordinate_compression(int *sa, int size)
 		i++;
 	}
 	free(vals);
-	return sa;
+	return (sa);
 }

@@ -1,10 +1,10 @@
-# include "push_swap.h"
+#include "push_swap.h"
 
-void ope_swap(t_stack *stack)
+void	ope_swap(t_stack *stack)
 {
-	t_element *top;
-	t_element *second;
-	int tmp;
+	t_element	*top;
+	t_element	*second;
+	int			tmp;
 
 	top = stack->top;
 	if (!top || !(top->next))
@@ -15,19 +15,19 @@ void ope_swap(t_stack *stack)
 	top->value = tmp;
 }
 
-void ope_push(t_stack *stack_a, t_stack *stack_b)
+void	ope_push(t_stack *stack_a, t_stack *stack_b)
 {
-	t_element *a_top;
+	t_element	*a_top;
 
 	a_top = pop(stack_a);
 	if (a_top != NULL)
 		push(stack_b, a_top);
 }
 
-void ope_rotate(t_stack *stack)
+void	ope_rotate(t_stack *stack)
 {
-	t_element *top;
-	t_element *btm;
+	t_element	*top;
+	t_element	*btm;
 
 	if (stack->top == NULL || stack->top->next == NULL)
 		return ;
@@ -39,10 +39,10 @@ void ope_rotate(t_stack *stack)
 	top->next = NULL;
 }
 
-void ope_reverse(t_stack *stack)
+void	ope_reverse(t_stack *stack)
 {
-	t_element *top;
-	t_element *btm;
+	t_element	*top;
+	t_element	*btm;
 
 	if (stack->top->next == NULL)
 		return ;

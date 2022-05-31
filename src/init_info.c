@@ -13,7 +13,7 @@ void	init_info(t_info *info, int count)
 	info->count = count - 1;
 }
 
-void deinit_info(t_info *info)
+void	deinit_info(t_info *info)
 {
 	free_opelist(info->opelist);
 	free_stack(info->b);
@@ -30,9 +30,10 @@ void	add_opelist(t_info *info, const char *op)
 	if (new_el == NULL)
 		exit(1);
 	new_el->op = ft_strdup(op);
-	if (el == NULL) {
+	if (el == NULL)
+	{
 		info->opelist = new_el;
-		return;
+		return ;
 	}
 	while (el->next)
 		el = el->next;

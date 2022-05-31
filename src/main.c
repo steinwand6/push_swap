@@ -25,7 +25,7 @@ void smart_swap(t_info *info, int n)
 		swap_a(info);
 }
 
-void push_core(t_info *info, int limit, int n)
+void push_worker(t_info *info, int limit, int n)
 {
 	t_element *elm;
 
@@ -57,25 +57,22 @@ void push_to_b_with_limit(t_info *info, int n)
 	int	limit;
 	
 	limit = info->a->min + n;
-	while (info->a->min < limit)
-		push_core(info, limit, n);
+	while (get_stack_size(info->a) > 0 && info->a->min < limit)
+		push_worker(info, limit, n);
 }
 
 void	get_max_and_push_to_a(t_info *info)
 {
-	t_element *elm;
 	int flg = 0;
 
-	elm = info->b->top;
-	while (elm->value != info->b->max)
+	while (info->b->top->value != info->b->max)
 	{
 		if (get_index_in_stack(info->b, info->b->max)
 			>(get_stack_size(info->b) / 2))
 			reverse_b(info);
 		else
 			rotate_b(info);
-		elm = info->b->top;
-		if (flg == 0 && elm->value == info->b->max - 1)
+		if (info->b->top->value == info->b->max - 1)
 		{
 			push_a(info);
 			flg = 1;
@@ -84,7 +81,6 @@ void	get_max_and_push_to_a(t_info *info)
 	push_a(info);
 	if (flg)
 	{
-		flg = 0;
 		if (info->b->top->value < info->b->top->next->value)
 			swap_ab(info);
 		else
@@ -110,8 +106,7 @@ void solver(t_info *info)
 		while (get_stack_size(info->a) > 10 && !is_sorted_asc(info->a))
 			push_to_b_with_limit(info, get_stack_size(info->a)/ 4);
 		while (get_stack_size(info->a) > 1)
-			push_to_b_with_limit(info, 15);
-		push_to_b_with_limit(info, info->a->max-1);
+			push_to_b_with_limit(info, info->a->max - 1);
 		while (sb->top)
 			get_max_and_push_to_a(info);
 	}
@@ -151,7 +146,5 @@ int main(int argc, char *argv[])
 	solver(&info);
 	free(values);
 	print_operations(&info);
-	free_opelist(info.opelist);
-	free_stack(info.b);
-	free_stack(info.a);
+	deinit_info(&info);
 }

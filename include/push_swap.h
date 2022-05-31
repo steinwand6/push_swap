@@ -74,5 +74,6 @@ void	solve_2_elements(t_info *info);
 void free_opelist(t_opelist *elm);
 void free_stack(t_stack  *stack);
 void	solver_less_than_eq_5(t_info *info);
+void deinit_info(t_info *info);
 
 #endif

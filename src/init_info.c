@@ -13,6 +13,13 @@ void	init_info(t_info *info, int count)
 	info->count = count - 1;
 }
 
+void deinit_info(t_info *info)
+{
+	free_opelist(info->opelist);
+	free_stack(info->b);
+	free_stack(info->a);
+}
+
 void	add_opelist(t_info *info, const char *op)
 {
 	t_opelist	*el;

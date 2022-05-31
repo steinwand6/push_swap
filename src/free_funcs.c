@@ -1,8 +1,8 @@
 #include "push_swap.h"
 
-void free_opelist(t_opelist *elm)
+void	free_opelist(t_opelist *elm)
 {
-	t_opelist *tmp;
+	t_opelist	*tmp;
 
 	while (elm)
 	{
@@ -13,7 +13,7 @@ void free_opelist(t_opelist *elm)
 	}
 }
 
-void free_stack(t_stack  *stack)
+void	free_stack(t_stack *stack)
 {
 	t_element	*elm;
 

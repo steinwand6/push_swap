@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	push_b(t_info* info)
+void	push_b(t_info *info)
 {
 	ope_push(info->a, info->b);
 	add_opelist(info, "pb");
@@ -10,7 +10,7 @@ void	push_b(t_info* info)
 	info->b->max = get_max_value(info->b);
 }
 
-void	push_a(t_info* info)
+void	push_a(t_info *info)
 {
 	ope_push(info->b, info->a);
 	add_opelist(info, "pa");
@@ -20,19 +20,19 @@ void	push_a(t_info* info)
 	info->b->max = get_max_value(info->b);
 }
 
-void	swap_a(t_info* info)
+void	swap_a(t_info *info)
 {
 	ope_swap(info->a);
 	add_opelist(info, "sa");
 }
 
-void	swap_b(t_info* info)
+void	swap_b(t_info *info)
 {
 	ope_swap(info->b);
 	add_opelist(info, "sb");
 }
 
-void	swap_ab(t_info* info)
+void	swap_ab(t_info *info)
 {
 	ope_swap(info->a);
 	ope_swap(info->b);

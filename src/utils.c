@@ -36,7 +36,7 @@ void	reverse_stack(t_info *info)
 	}
 }
 
-int		get_stack_size(t_stack *stack)
+int	get_stack_size(t_stack *stack)
 {
 	int			size;
 	t_element	*elm;
@@ -51,7 +51,7 @@ int		get_stack_size(t_stack *stack)
 	return (size);
 }
 
-int		get_max_value(t_stack *stack)
+int	get_max_value(t_stack *stack)
 {
 	int			max;
 	t_element	*elm;
@@ -67,7 +67,7 @@ int		get_max_value(t_stack *stack)
 	return (max);
 }
 
-int		get_min_value(t_stack *stack)
+int	get_min_value(t_stack *stack)
 {
 	int			min;
 	t_element	*elm;

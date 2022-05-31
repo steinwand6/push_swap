@@ -35,8 +35,8 @@ int	get_median_value(t_stack *stack)
 int	is_recommended_rr(t_stack *stack, int limit)
 {
 	t_element	*elm;
-	int	count_a;
-	int	count_b;
+	int			count_a;
+	int			count_b;
 
 	elm = stack->top;
 	count_a = 0;
@@ -57,8 +57,8 @@ int	is_recommended_rr(t_stack *stack, int limit)
 
 int	get_second_value(t_stack *stack)
 {
-	int second;
-	t_element *elm;
+	int			second;
+	t_element	*elm;
 
 	second = 0;
 	elm = stack->top;

@@ -19,17 +19,23 @@ int	*convert_array(char **argv, int size)
 	int		i;
 	long	val;
 
-	array = malloc(sizeof(int) * (size + 1));
+	array = malloc(sizeof(int) * (size));
 	if (array == NULL)
 		exit(1);
 	i = 0;
 	while (i < size)
 	{
 		if (!is_integer_string(argv[i]))
-			exit (1);
+		{
+			free(array);
+			return (NULL);
+		}
 		val = atol(argv[i]);
 		if (val < INT_MIN || val > INT_MAX)
-			exit(1);
+		{
+			free(array);
+			return (NULL);
+		}
 		array[i] = val;
 		i++;
 	}

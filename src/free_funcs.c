@@ -25,3 +25,16 @@ void	free_stack(t_stack *stack)
 	}
 	free(stack);
 }
+
+void	free_array(char **array)
+{
+	int		i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}

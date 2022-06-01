@@ -7,7 +7,7 @@ static int	*copy_array(int *array, size_t size)
 
 	vals = malloc(sizeof(int) * size);
 	if (vals == NULL)
-		exit(1);
+		exit_error();
 	i = 0;
 	while (i < size)
 	{
@@ -56,7 +56,7 @@ int	check_duplicate(int *array, int size)
 	while (i < size)
 	{
 		if (prev == array[i])
-			exit(1);
+			return (1);
 		prev = array[i];
 		i++;
 	}
@@ -87,7 +87,12 @@ int	*coordinate_compression(int *sa, int size)
 
 	vals = copy_array(sa, size);
 	quick_sort(vals, 0, size - 1);
-	check_duplicate(vals, size);
+	if (check_duplicate(vals, size))
+	{
+		free(sa);
+		free(vals);
+		exit_error();
+	}
 	i = 0;
 	while (i < size)
 	{

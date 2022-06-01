@@ -27,6 +27,7 @@ void	add_opelist(t_info *info, const char *op)
 
 	el = info->opelist;
 	new_el = malloc(sizeof(t_opelist));
+	new_el->next = NULL;
 	if (new_el == NULL)
 		exit(1);
 	new_el->op = ft_strdup(op);

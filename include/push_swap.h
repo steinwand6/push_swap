@@ -80,5 +80,8 @@ void		push_to_b_with_limit(t_info *info, int n);
 void		push_worker(t_info *info, int limit, int n);
 void		smart_rotate(t_info *info, int n);
 void		smart_swap(t_info *info, int n);
+void		free_array(char **array);
+void		exit_error(void);
+int			count_elements_in_array(char **array);
 
 #endif

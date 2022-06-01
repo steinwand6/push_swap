@@ -15,10 +15,12 @@ CC			= gcc
 CFLAGS	= -Wall -Werror -Wextra
 SRCS		= element.c ft_atol.c ope_base.c stack.c utils.c coordinate_compression.c \
 				init_info.c operations1.c operations2.c utils2.c free_funcs.c \
-				smart_operations.c solver_with_small.c main.c push_swap.c
+				smart_operations.c solver_with_small.c main.c push_swap.c utils3.c
 HEADERPATH	= -I ./include
+OBJDIR		= ./obj
+LIBFT		= ./libft/libft.a
 
-OBJS	= $(SRCS:.c=.o)
+OBJS	= $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 OBJSB	= $(SRCB:.c=.o)
 ifdef WITH_BONUS
 ALL_OBJS = $(OBJS) $(OBJSB)
@@ -35,22 +37,25 @@ clean:
 
 fclean:	clean
 	rm -f $(NAME)
-	@make -C libft fclean
+	rm -f $(LIBFT)
 
 re:	fclean all
 
 #bonus:
 #	@$(MAKE) WITH_BONUS=1 $(NAME)
 
-%.o:	%.c
-	@make -C ./libft
+$(OBJDIR)/%.o:	%.c
+	@[ -d $(OBJDIR) ]
 	$(CC) -c $(CFLAGS) -o $@ $< $(HEADERPATH)
 
-$(NAME):	$(ALL_OBJS)
+$(LIBFT):
+	@make -C ./libft
+
+$(NAME):	$(LIBFT) $(ALL_OBJS)
 	gcc -o  $(NAME) $(ALL_OBJS) ./libft/libft.a
 
-debug:		$(ALL_OBJS)
-	gcc --sanitize=leak -o  $(NAME) $(ALL_OBJS) ./libft/libft.a
+#debug:		$(ALL_OBJS)
+#	gcc --sanitize=leak -o  $(NAME) $(ALL_OBJS) ./libft/libft.a
 
 .PHONY:	all clean fclean re bonus
 

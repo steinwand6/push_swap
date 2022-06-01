@@ -36,27 +36,38 @@ void	print_operations(t_info *info)
 	}
 }
 
+void	sort(t_info *info)
+{
+	if (is_sorted_asc(info->a))
+		return ;
+	solver(info);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_info	info;
 	int		*values;
+	char	**pre_vals;
 
-	if (argc == 1 || argc == 2)
+	if (argc == 1)
 		return (0);
-	init_info(&info, argc);
-	values = convert_array(&(argv[1]), argc - 1);
+	if (argc == 2)
+	{
+		pre_vals = ft_split(argv[1], ' ');
+		argc = count_elements_in_array(pre_vals) + 1;
+		values = convert_array(pre_vals, argc - 1);
+		free_array(pre_vals);
+	}
+	else
+		values = convert_array(&(argv[1]), argc - 1);
+	if (values == NULL)
+		exit_error();
 	values = coordinate_compression(values, argc - 1);
+	init_info(&info, argc);
 	create_stack_from_array(&info, values);
 	reverse_stack(&info);
-	if (is_sorted_asc(info.a))
-	{
-		free_opelist(info.opelist);
-		free_stack(info.b);
-		free_stack(info.a);
-		return (0);
-	}
-	solver(&info);
 	free(values);
+	sort(&info);
 	print_operations(&info);
 	deinit_info(&info);
 }

@@ -52,10 +52,10 @@ int	create_stack_from_array(t_info *info, int *val)
 	while (i < info->count)
 	{
 		if (val[i] < INT_MIN || INT_MAX < val[i])
-			return (-1);
+			exit_error();
 		new_el = new_element(val[i]);
 		if (!new_el)
-			return (-1);
+			exit_error();
 		push(info->a, new_el);
 		i++;
 	}
